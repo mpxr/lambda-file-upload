@@ -1,0 +1,43 @@
+service: lambda-file-upload-node
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: eu-west-1
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:ListBucket"
+      Resource: "arn:aws:s3:::dev-file-artifact-store"
+    - Effect: "Allow"
+      Action:
+        - "s3:PutObject"
+        - "s3:GetObject"
+      Resource: "arn:aws:s3:::dev-file-artifact-store/*"
+
+functions:
+  file-upload:
+    handler: handler.upload
+    environment:
+      file_s3_bucket_name: dev-file-artifact-store
+    events:
+      - http:
+          path: upload
+          method: post
+
+resources:
+ Resources:
+   NewResource:
+     Type: AWS::S3::Bucket
+     Properties:
+       BucketName: dev-file-artifact-store
+
+plugins:
+  - serverless-apigw-binary
+
+custom:
+  apigwBinary:
+    types:
+      - 'multipart/form-data'
