@@ -1,13 +1,13 @@
 {
   "name": "lambda-file-upload",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Upload file into an S3 bucket with AWS Lambda",
+  "main": "handler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Marton Veto",
   "license": "ISC",
   "devDependencies": {
     "serverless-apigw-binary": "^0.4.4"
